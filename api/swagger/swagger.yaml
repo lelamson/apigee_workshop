@@ -4,9 +4,9 @@ info:
   title: Hello World App
 # during dev, should point to your local machine
 host: localhost:10010
-# basePath prefixes all resource paths
+# basePath prefixes all resource paths 
 basePath: /
-#
+# 
 schemes:
   # tip: remove http to make production-grade
   - http
@@ -50,13 +50,13 @@ paths:
     x-swagger-router-controller: hotels
     x-a127-apply: {}
     get:
-      description: Returns a list of nearby hotels
+      description: Returns nearby hotels
       # used as the method name of the controller
       operationId: getHotels
       parameters:
         - name: location
           in: query
-          description: The latitude and longitude of search around
+          description: The latitude and longitude to search around
           required: true
           type: string
       responses:
@@ -70,6 +70,31 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+  /restaurants:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: restaurants
+    x-a127-apply: {}
+    get:
+      description: Returns a list of restaurants
+      # used as the method name of the controller
+      operationId: getRestaurants
+      parameters:
+        - name: location
+          in: query
+          description: The lat and lng of search
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/HelloWorldResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"            
 # complex objects have schema definitions
 definitions:
   HelloWorldResponse:
